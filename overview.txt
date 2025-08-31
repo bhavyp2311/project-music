@@ -1,0 +1,6 @@
+Website name - 3(tech) studios music 
+we create a music website
+which has 3 mode
+proffesional :- directly play music
+crazy :- for 5 songs you have to play one game and then you listen 5 song of your choice
+gym :- you have to perform one gym task and upload video then you listen 10 song of your choice
