@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        #workoutArea {
+            margin-top: 20px;
+            padding: 10px;
+            background: #222;
+            border-radius: 10px;
+        }
+        #photoPreview {
+            margin-top: 20px;
+        }
+        button {
+            background: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        #songPlayer {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to the Gym Mode</h1>
+    <p>Select your workout:</p>
+    <button onclick="chooseWorkout('chest')">Chest Workout</button>
+    <input type="file" id="chestPhoto" accept="image/*">
+    <button onclick="chooseWorkout('legs')">Legs Workout</button>
+    <input type="file" id="legsPhoto" accept="image/*">
+    <button onclick="chooseWorkout('cardio')">Cardio Workout</button>
+    <input type="file" id="cardioPhoto" accept="image/*">
+    <button onclick="nextSong()">Next Song</button>
+    <div id="workoutArea"></div>
+    <div id="photoPreview"></div>
+    <div id="songPlayer">
+        <h2>Now Playing:</h2>
+        <div id="songTitle"></div>
+        <audio id="audioPlayer" controls style="margin-top:10px;">
+           <audio id="audioPlayer" controls style="margin-top:10px;">
+            <audio id="audioPlayer" controls style="margin-top:10px;"></audio>
+           </audio><audio id="audioPlayer" controls style="margin-top:10px;"><audio id="audioPlayer" controls style="margin-top:10px;"></audio>
+        </audio>
+    </div>
+
+    <script>
+        // Song list (replace src with your own mp3 files if needed)
+        const songs = [
+            { title: "Eye of the Tiger - Survivor", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+            { title: "Stronger - Kanye West", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+            { title: "Lose Yourself - Eminem", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" }
+        ];
+        let currentSong = 0;
+
+        function loadSong(index) {
+            const song = songs[index];
+            document.getElementById("songTitle").textContent = song.title;
+            const audio = document.getElementById("audioPlayer");
+            audio.src = song.src;
+            audio.play();
+        }
+
+        function nextSong() {
+            currentSong = (currentSong + 1) % songs.length;
+            loadSong(currentSong);
+        }
+
+        // Load the first song on page load
+        window.onload = function() {
+            loadSong(currentSong);
+        };
+
+        function chooseWorkout(type) {
+            let workoutArea = document.getElementById("workoutArea");
+            workoutArea.innerHTML = `<h2>${type.charAt(0).toUpperCase() + type.slice(1)} Workout</h2>`;
+        }
+
+        document.getElementById("chestPhoto").addEventListener("change", function() {
+            previewPhoto(this.files[0]);
+        });
+        document.getElementById("legsPhoto").addEventListener("change", function() {
+            previewPhoto(this.files[0]);
+        });
+        document.getElementById("cardioPhoto").addEventListener("change", function() {
+            previewPhoto(this.files[0]);
+        });
+
+        function previewPhoto(file) {
+            let photoPreview = document.getElementById("photoPreview");
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                photoPreview.innerHTML = `<img src="${e.target.result}" alt="Workout Photo" style="max-width: 100%;">`;
+            }
+            reader.readAsDataURL(file);
+        }
+    </script>
+</body>
+</html>
